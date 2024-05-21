@@ -1,8 +1,8 @@
 import "./App.css";
-import "bootstrap/dist/css/bootstrap.css";
+import { Square } from "./components/Square";
 
 function App() {
-  return;
+  return <Square />;
 }
 
 export default App;
