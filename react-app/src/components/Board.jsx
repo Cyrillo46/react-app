@@ -5,6 +5,7 @@ export const Board = () => {
   const [xIsNext, setXIsNext] = useState(true);
   const [squares, setSquares] = useState(Array(9).fill(null));
 
+  // determines the next player as well  as the winner
   const handleClick = (i) => {
     const nextSquare = squares.slice();
     if (squares[i] || calculateWinner(squares)) {
@@ -19,6 +20,7 @@ export const Board = () => {
     setSquares(nextSquare);
   };
 
+  // determines winner
   const calculateWinner = (squares) => {
     const lines = [
       // Horizontal wins
@@ -35,6 +37,7 @@ export const Board = () => {
     ];
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i];
+      // My favorite logic (a = b & b = c, then a = c)
       if (squares[a] && squares[a] == squares[b] && squares[b] == squares[c]) {
         return squares[a];
       }
@@ -42,16 +45,17 @@ export const Board = () => {
     return null;
   };
 
+  // determines the status of the game and what to display
   const winner = calculateWinner(squares);
   let status;
 
   winner
-    ? (status = "The winner is " + winner)
+    ? (status = "The winner is " + winner + "!")
     : (status = "Current turn: " + (xIsNext ? "X" : "O"));
 
   return (
     <>
-      <h1>{status}!</h1>
+      <h1>{status}</h1>
       <div className="board-row">
         <Square value={squares[0]} squareClick={() => handleClick(0)} />
         <Square value={squares[1]} squareClick={() => handleClick(1)} />
